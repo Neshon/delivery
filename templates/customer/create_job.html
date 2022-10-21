@@ -36,9 +36,26 @@
           {% if not job %}
           <p>A summery of your job information will appear here</p>
           {% else %}
-            <h4>{{ job.name }}</h4>
-            <span>{{ job.quantity }} Item</span><br/>
-            <span>{{ job.get_size_display }} Job</span>
+            {% if step > 1 %}
+              <h4>{{ job.name }}</h4>
+              <span>{{ job.quantity }} Item</span><br/>
+              <span>{{ job.get_size_display }} Job</span>
+            {% endif %}
+
+            {% if step > 2 %}
+              <hr/>
+              <p class="text-secondary"><small><b>PICKUP</b></small></p>
+              <h4>{{ job.pickup_name }}</h4>
+              <span>{{ job.pickup_address }}</span><br/>
+            {% endif %}
+
+            {% if step >= 3 %}
+              <hr/>
+              <p class="text-secondary"><small><b>DELIVERY</b></small></p>
+              <h4>{{ job.delivery_name }}</h4>
+              <span>{{ job.delivery_address }}</span><br/>
+            {% endif %}
+
           {% endif %}
         </div>
       </div>
@@ -82,9 +99,43 @@
         </div>
         <div class="tab-pane fade {% if step == 2 %}show active{% endif %}" id="pickup" role="tabpanel" aria-labelledby="pickup-tab">
           <h1>Pickup</h1>
+          <form method="POST" enctype="multipart/form-data">
+            <b class="text-secondary">Pickup</b>
+            <div class="card bg-white mt-2 mb-5">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-lg-8">
+                    {% csrf_token %}
+                    {% bootstrap_form step2_form %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="step" value="2">
+            <button type="button" class="btn btn-outline-warning">Back</button>
+            <button type="submit" class="btn btn-warning">Save and continue</button>
+          </form>
         </div>
         <div class="tab-pane fade {% if step == 3 %}show active{% endif %}" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
           <h1>Delivery</h1>
+          <form method="POST" enctype="multipart/form-data">
+            <b class="text-secondary">Delivery</b>
+            <div class="card bg-white mt-2 mb-5">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-lg-8">
+                    {% csrf_token %}
+                    {% bootstrap_form step3_form %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="step" value="3">
+            <button type="button" class="btn btn-outline-warning">Back</button>
+            <button type="submit" class="btn btn-warning">Save and continue</button>
+          </form>
         </div>
       </div>
 
