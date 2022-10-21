@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
+from config import settings
 from . import forms
 from .models import Job
 
@@ -78,9 +80,9 @@ def create_job_page(request):
                                                   request.FILES,
                                                   instance=creating_job)
             if step1_form.is_valid():
-                create_job = step1_form.save(commit=False)
-                create_job.customer = current_customer
-                create_job.save()
+                creating_job = step1_form.save(commit=False)
+                creating_job.customer = current_customer
+                creating_job.save()
 
                 messages.success(request, "You job has been created")
                 return redirect(reverse('create_job'))
@@ -89,7 +91,7 @@ def create_job_page(request):
             step2_form = forms.JobCreateStep2Form(request.POST,
                                                   instance=creating_job)
             if step2_form.is_valid():
-                create_job = step2_form.save()
+                creating_job = step2_form.save()
 
                 messages.success(request, "You pickup has been created")
                 return redirect(reverse('create_job'))
@@ -98,7 +100,24 @@ def create_job_page(request):
             step3_form = forms.JobCreateStep3Form(request.POST,
                                                   instance=creating_job)
             if step3_form.is_valid():
-                create_job = step3_form.save()
+                creating_job = step3_form.save()
+                try:
+                    r = requests.get(
+                        f"https://maps.googleapis.com/maps/api/distancematrix/"
+                        f"json?origins={creating_job.pickup_address}"
+                        f"&destinations={creating_job.delivery_address}"
+                        f"&key={settings.GOOGLE_MAP_API_KEY}")
+
+                    # print(r.json()['rows'])
+                    distance = r.json()['rows'][0]['elements'][0]['distance']['value']
+                    duration = r.json()['rows'][0]['elements'][0]['duration']['value']
+                    creating_job.distance = round(distance / 1000, 2)
+                    creating_job.duration = int(duration / 60)
+                    creating_job.price = creating_job.distance * 5
+                    creating_job.save()
+                except Exception as e:
+                    print(e)
+                    messages.error(request, "Error in google api")
 
                 messages.success(request, "You delivery has been created")
                 return redirect(reverse('create_job'))

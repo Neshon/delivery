@@ -73,5 +73,9 @@ class Job(models.Model):
     delivery_name = models.CharField(max_length=255, blank=True)
     delivery_phone = models.CharField(max_length=20, blank=True)
 
+    duration = models.IntegerField(default=0)
+    distance = models.FloatField(default=0)
+    price = models.FloatField(default=0)
+
     def __str__(self):
         return self.name

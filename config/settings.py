@@ -178,3 +178,6 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
  }
+
+
+GOOGLE_MAP_API_KEY = os.environ.get('GOOGLE_MAP_API_KEY')
