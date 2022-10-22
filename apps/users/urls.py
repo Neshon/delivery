@@ -14,4 +14,7 @@ urlpatterns = [
     path('customer/', views.customer_page),
     path('customer/profile/', views.customer_profile, name='profile'),
     path('customer/create_job/', views.create_job_page, name='create_job'),
+    path('customer/jobs/current/', views.current_jobs_page, name='current_jobs'),
+    path('customer/jobs/archived/', views.archived_jobs_page, name='archived_jobs'),
+    path('customer/jobs/<job_id>/', views.job_page, name='job'),
 ]

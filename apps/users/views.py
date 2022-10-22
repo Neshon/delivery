@@ -69,7 +69,19 @@ def customer_profile(request):
 @login_required(login_url='/sign-in/?next=/users/customer/')
 def create_job_page(request):
     current_customer = request.user.customer
-    creating_job = Job.objects.filter(customer=current_customer, status=Job.CREATING_STATUS).last()
+    has_current_job = Job.objects.filter(customer=current_customer,
+                                         status__in=[
+                                             Job.PROCESSING_STATUS,
+                                             Job.PICKING_STATUS,
+                                             Job.DELIVERING_STATUS
+                                         ]).exists()
+
+    if has_current_job:
+        messages.warning(request, "You currently have a processing job.")
+        return redirect(reverse('current_jobs'))
+
+    creating_job = Job.objects.filter(customer=current_customer,
+                                      status=Job.CREATING_STATUS).last()
     step1_form = forms.JobCreateStep1Form(instance=creating_job)
     step2_form = forms.JobCreateStep2Form(instance=creating_job)
     step3_form = forms.JobCreateStep3Form(instance=creating_job)
@@ -118,7 +130,8 @@ def create_job_page(request):
                 except Exception as e:
                     print(e)
                     messages.error(request, "Error in google api")
-
+                creating_job.status = Job.PROCESSING_STATUS
+                creating_job.save()
                 messages.success(request, "You delivery has been created")
                 return redirect(reverse('create_job'))
 
@@ -135,6 +148,45 @@ def create_job_page(request):
         'step1_form': step1_form,
         'step2_form': step2_form,
         'step3_form': step3_form,
+    })
+
+
+@login_required(login_url='/sign-in/?next=/users/customer/')
+def current_jobs_page(request):
+    jobs = Job.objects.filter(customer=request.user.customer,
+                              status__in=[
+                                  Job.PROCESSING_STATUS,
+                                  Job.PICKING_STATUS,
+                                  Job.DELIVERING_STATUS
+                              ])
+    return render(request, 'customer/jobs.html', {
+        'jobs': jobs
+    })
+
+
+@login_required(login_url='/sign-in/?next=/users/customer/')
+def job_page(request, job_id):
+    job = Job.objects.get(id=job_id)
+
+    if request.method == 'POST' and job.status == Job.PROCESSING_STATUS:
+        job.status = Job.CANCELED_STATUS
+        job.save()
+        return redirect(reverse('archived_jobs'))
+
+    return render(request, 'customer/job.html', {
+        'job': job
+    })
+
+
+@login_required(login_url='/sign-in/?next=/users/customer/')
+def archived_jobs_page(request):
+    jobs = Job.objects.filter(customer=request.user.customer,
+                              status__in=[
+                                  Job.COMPLETED_STATUS,
+                                  Job.CANCELED_STATUS,
+                              ])
+    return render(request, 'customer/jobs.html', {
+        'jobs': jobs
     })
 
 

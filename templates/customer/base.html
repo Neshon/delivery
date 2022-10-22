@@ -15,7 +15,7 @@
       </div>
       <div class="list-group mt-5">
         <a href="{% url 'create_job' %}" class="list-group-item list-group-item-action {% if request.path == '/users/customer/create_job/' %} active {% endif %}">Create a Job</a>
-        <a href="#" class="list-group-item list-group-item-action {% if request.path == 'my_jobs' %} active {% endif %}">My Jobs</a>
+        <a href="{% url 'current_jobs' %}" class="list-group-item list-group-item-action {% if request.path == '/users/customer/jobs/current/' or request.path == '/users/customer/archived/' %} active {% endif %}">My Jobs</a>
         <a href="{% url 'profile' %}" class="list-group-item list-group-item-action {% if request.path == '/users/customer/profile/' %} active {% endif %}">Profile Information</a>
       </div>
     </div>
