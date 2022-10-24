@@ -17,13 +17,20 @@ def home(request):
 
 
 # courier
-@login_required()
+@login_required(login_url='/sign-in/?next=/users/courier/')
 def courier_page(request):
     return render(request, 'home.html')
 
 
+@login_required(login_url='/sign-in/?next=/users/courier/')
+def available_jobs_page(request):
+    return render(request, 'courier/available_jobs.html', {
+        'google_map_api_key': settings.GOOGLE_MAP_API_KEY,
+    })
+
+
 # customer
-@login_required()
+@login_required(login_url='/sign-in/?next=/users/customer/')
 def customer_page(request):
     return redirect(reverse('profile'))
 
@@ -79,9 +86,9 @@ def create_job_page(request):
     if has_current_job:
         messages.warning(request, "You currently have a processing job.")
         return redirect(reverse('current_jobs'))
-
     creating_job = Job.objects.filter(customer=current_customer,
-                                      status=Job.CREATING_STATUS).last()
+                                      status=Job.CREATING_STATUS).latest('created_at')
+
     step1_form = forms.JobCreateStep1Form(instance=creating_job)
     step2_form = forms.JobCreateStep2Form(instance=creating_job)
     step3_form = forms.JobCreateStep3Form(instance=creating_job)
@@ -143,6 +150,7 @@ def create_job_page(request):
         current_step = 2
 
     return render(request, 'customer/create_job.html', {
+        'google_map_api_key': settings.GOOGLE_MAP_API_KEY,
         'job': creating_job,
         'step': current_step,
         'step1_form': step1_form,
@@ -174,6 +182,7 @@ def job_page(request, job_id):
         return redirect(reverse('archived_jobs'))
 
     return render(request, 'customer/job.html', {
+        'google_map_api_key': settings.GOOGLE_MAP_API_KEY,
         'job': job
     })
 
