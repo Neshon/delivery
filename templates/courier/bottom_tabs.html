@@ -35,15 +35,15 @@
 
 
 <div class="bottom-tabs d-flex">
-  <a href="#" class="active">
+  <a href="{% url 'available_jobs' %}" class="{% if request.path == '/users/courier/jobs/available/' %} active {% endif %}">
     <i class="fas fa-map-marked-alt"></i>
     <span>Available Jobs</span>
   </a>
-  <a href="#">
+  <a href="{% url 'current_job' %}" class="{% if request.path == '/users/courier/jobs/current/' or request.path == '/users/courier/jobs/archived/' %} active {% endif %}">
     <i class="fas fa-archive"></i>
     <span>My Jobs</span>
   </a>
-  <a href="#">
+  <a href="{% url 'courier_profile' %}" class="{% if request.path == '/users/courier/profile/' %} active {% endif %}">
     <i class="fas fa-user"></i>
     <span>Profile</span>
   </a>

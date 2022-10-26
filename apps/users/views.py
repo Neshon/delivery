@@ -29,6 +29,94 @@ def available_jobs_page(request):
     })
 
 
+@login_required(login_url='/sign-in/?next=/users/courier/')
+def available_job_page(request, id):
+    job = Job.objects.filter(id=id, status=Job.PROCESSING_STATUS).last()
+
+    if not Job:
+        return redirect(reverse('available_jobs'))
+
+    if request.method == 'POST':
+        job.courier = request.user.courier
+        job.status = Job.PICKING_STATUS
+        job.save()
+
+        return redirect(reverse('available_jobs'))
+
+    return render(request, 'courier/available_job.html', {
+        'job': job,
+    })
+
+
+@login_required(login_url='/sign-in/?next=/users/courier/')
+def current_job_page(request):
+    job = Job.objects.filter(courier=request.user.courier,
+                             status__in=[
+                                 Job.PICKING_STATUS,
+                                 Job.DELIVERING_STATUS,
+                             ]
+                             ).last()
+
+    return render(request, 'courier/current_job.html', {
+        'google_map_api_key': settings.GOOGLE_MAP_API_KEY,
+        'job': job,
+    })
+
+
+@login_required(login_url='/sign-in/?next=/users/courier/')
+def current_job_take_photo_page(request, id):
+    job = Job.objects.filter(
+        id=id,
+        courier=request.user.courier,
+        status__in=[
+            Job.PICKING_STATUS,
+            Job.DELIVERING_STATUS
+        ]
+    ).last()
+
+    if not job:
+        return redirect(reverse('current_job'))
+
+    return render(request, 'courier/current_job_take_photo_page.html', {
+        'job': job
+    })
+
+
+@login_required(login_url='/sign-in/?next=/users/courier/')
+def job_complete_page(request):
+    return render(request, 'courier/job_complete.html')
+
+
+@login_required(login_url='/sign-in/?next=/users/courier/')
+def jobs_archived_page(request):
+    jobs = Job.objects.filter(
+        courier=request.user.courier,
+        status=Job.COMPLETED_STATUS
+    )
+
+    return render(request, 'courier/jobs_archived.html', {
+        'jobs': jobs
+    })
+
+
+@login_required(login_url='/sign-in/?next=/users/courier/')
+def courier_profile(request):
+    jobs = Job.objects.filter(
+        courier=request.user.courier,
+        status=Job.COMPLETED_STATUS
+    )
+
+    total_earnings = round(sum(job.price for job in jobs) * 0.8, 2)
+    total_jobs = len(jobs)
+    total_km = sum(job.distance for job in jobs)
+
+    return render(request, 'courier/profile.html', {
+        'total_earnings': total_earnings,
+        'total_jobs': total_jobs,
+        'total_km': total_km
+    })
+
+
 # customer
 @login_required(login_url='/sign-in/?next=/users/customer/')
 def customer_page(request):
