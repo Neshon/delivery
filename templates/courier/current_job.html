@@ -83,6 +83,10 @@
   }
 
   function updateCourierPosition(map) {
+    const jobSocket = new WebSocket(
+        "ws://" + window.location.host + "/ws/jobs/{{ job.id }}/"
+    );
+
     navigator.geolocation.watchPosition(pos => {
       var courierPosition = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 
@@ -97,6 +101,17 @@
       }
 
       map.panTo(courierPosition);
+
+      try {
+        jobSocket.send(JSON.stringify({
+            job: {
+              courier_lat: pos.coords.latitude,
+              courier_lng: pos.coords.longitude,
+            }
+        }))
+      } catch (error) {
+        console.log(error);
+      }
     },
     pos => console.log(pos))
   }

@@ -90,6 +90,34 @@
       }
     );
   }
+
+  const jobSocket = new WebSocket(
+    "ws://" + window.location.host + "/ws/jobs/{{ job.id }}/"
+  );
+
+  jobSocket.onmessage = function (e) {
+    var data = JSON.parse(e.data);
+    var job = data.job;
+    console.log(job);
+
+    if (job.courier_lat && job.courier_lng) {
+        var courierPosition = new google.maps.LatLng(job.courier_lat, job.courier_lng);
+        window.courierMarker.setPosition(courierPosition);
+    }
+    if (job.status) {
+      document.getElementById('job_status').innerHTML = job.status;
+      document.getElementById('form').style.display = 'none';
+    }
+
+    if (job.pickup_photo) {
+      document.getElementById('pickup_photo').innerHTML = '<img src="' + job.pickup_photo + '" class="rounded-lg photo" width="130" height="130">';
+    }
+
+    if (job.delivery_photo) {
+      document.getElementById('delivery_photo').innerHTML = '<img src="' + job.delivery_photo + '" class="rounded-lg photo" width="130" height="130">';
+    }
+  }
+
 </script>
 
 {% endblock %}
@@ -102,7 +130,7 @@
   <div class="media-body">
 
     {% if job.status == 'processing' %}
-    <form method="POST" class="float-right">
+    <form id="form" method="POST" class="float-right">
       {% csrf_token %}
       <button type="submit" class="btn btn-warning">Cancel Job</button>
     </form>
@@ -165,7 +193,7 @@
         <b>{{ job.delivery_name }}</b><br/>
         <span>{{ job.delivery_phone }}</span>
       </div>
-      <div id="pickup_photo" class="col-lg-4">
+      <div id="delivery_photo" class="col-lg-4">
         {% if job.delivery_photo %}
         <img src="{{ job.delivery_photo.url }}" class="rounded-lg photo" width="130" height="130">
         {% else %}
@@ -180,7 +208,7 @@
 <div class="d-flex justify-content-between">
   <b class="text-secondary">TRACK DELIVERY</b>
   <div>
-    <span class="badge badge-warning">{{ job.get_status_display }}</span>
+    <span id="job_status" class="badge badge-warning">{{ job.get_status_display }}</span>
   </div>
 </div>
 
