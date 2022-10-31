@@ -149,7 +149,7 @@
       </div>
       <div class="col-lg-3">
         <small class="text-secondary">PRICE</small><br/>
-        <span><b>{{ job.price }}</b></span>
+        <span><b>${{ job.price }}</b></span>
       </div>
       <div class="col-lg-3">
         <small class="text-secondary">QUANTITY</small><br/>
@@ -208,7 +208,7 @@
 <div class="d-flex justify-content-between">
   <b class="text-secondary">TRACK DELIVERY</b>
   <div>
-    <span id="job_status" class="badge badge-warning">{{ job.get_status_display }}</span>
+    <span id="job_status" class="badge text-bg-warning">{{ job.get_status_display }}</span>
   </div>
 </div>
 

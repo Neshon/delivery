@@ -13,7 +13,7 @@
         <div class="card-body">
           <h5 class="card-title">customer</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="/users/sign-in/?next=/users/customer/" class="btn btn-warning">Details</a>
+          <a href="{% if user.is_authenticated %}/users/customer/{% else %}/users/sign-in/?next=/users/customer/{% endif %}" class="btn btn-warning">Details</a>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
         <div class="card-body">
           <h5 class="card-title">courier</h5>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="/users/sign-in/?next=/users/courier/" class="btn btn-warning">Details</a>
+          <a href="{% if user.is_authenticated %}/users/courier/jobs/available/{% else %}/users/sign-in/?next=/users/courier/jobs/available/{% endif %}" class="btn btn-warning">Details</a>
         </div>
       </div>
     </div>

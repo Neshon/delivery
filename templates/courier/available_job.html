@@ -25,7 +25,7 @@
 
 <div class="header">
   <a href="{% url 'available_jobs' %}" class="mr-2">
-    <i class="fas fa-chevron-left text-dark"></i>
+    <i class="bi bi-arrow-left me-2" style="font-size: 2rem; color: black"></i>
   </a>
   <h5 class="mt-1 mb-0">Available Jobs</h5>
 </div>
@@ -37,18 +37,18 @@
       <h4>{{ job.name }}</h4>
       <span>{{ job.get_size_display }} Size</span><br/>
       <span>{{ job.quantity }} Item(s)</span><br/>
-      <span>{{ job.price }}$</span>
+      <span>${{ job.price }}</span>
     </div>
   </div>
   <hr/>
 
   <div class="d-flex align-items-centre text-secondary mb-3">
-    <i class="fas fa-map-marker-alt"></i>
+    <i class="bi bi-geo-alt-fill me-2"></i>
     <span class="mt-2">{{ job.pickup_address }}</span>
   </div>
 
   <div class="d-flex align-items-centre text-secondary mb-3">
-    <i class="fas fa-flag-checkered"></i>
+    <i class="bi bi-flag-fill me-2"></i>
     <span class="mt-2">{{ job.delivery_address }}</span>
   </div>
   <hr/>

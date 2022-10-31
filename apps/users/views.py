@@ -54,7 +54,7 @@ def available_job_page(request, id):
         except:
             pass
 
-        return redirect(reverse('available_jobs'))
+        return redirect(reverse('current_job'))
 
     return render(request, 'courier/available_job.html', {
         'job': job,
@@ -188,7 +188,7 @@ def create_job_page(request):
         messages.warning(request, "You currently have a processing job.")
         return redirect(reverse('current_jobs'))
     creating_job = Job.objects.filter(customer=current_customer,
-                                      status=Job.CREATING_STATUS).latest('created_at')
+                                      status=Job.CREATING_STATUS).last()
 
     step1_form = forms.JobCreateStep1Form(instance=creating_job)
     step2_form = forms.JobCreateStep2Form(instance=creating_job)
@@ -310,6 +310,7 @@ def sign_up(request):
             user.username = email
             user.save()
 
-            login(request, user)
+            login(request, user,
+                  backend='django.contrib.auth.backends.ModelBackend')
             return redirect('/')
     return render(request, 'sign_up.html', {'form': form})
