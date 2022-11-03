@@ -3,42 +3,63 @@
 
 
 {% block content %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <img src="{% static 'img/avatar.png' %}" class="rounded-circle" width="60" height="60">
+      {% if not request.user.is_authenticated %}
 
-<div class="media align-items-center bg-warning p-3">
-  <img src="{% static 'img/avatar.png' %}" class="rounded-circle" width="60" height="60">
-  <div class="media-body ml-4">
-    <h4 class="mb-0">{{ request.user.get_full_name }}</h4>
-  </div>
-</div>
-
-<div class="mt-2 p-2">
-  <b class="text-secondary">Summery</b>
-  <hr/>
-
-  <div class="d-flex text-center">
-    <div class="flex-grow-1">
-      <h4 class="text-success">${{ total_earnings }}</h4>
-      <span class="text-secondary">Total Earnings</span>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <h4 class="text-light mb-0">{{ request.user.get_full_name }}</h4>
+      </div>
+      {% else %}
+      <form class="form-inline">
+        <span class="mr-4 text-light me-2">{{ request.user.get_full_name|title }}</span>
+        <a href="/users/signout" class="btn btn-outline-gray-100 d-none d-lg-inline">Sign out</a>
+      </form>
+      {% endif %}
     </div>
-    <div class="flex-grow-1">
-      <h4 class="text-success">{{ total_jobs }} Jobs</h4>
-      <span class="text-secondary">Completed</span>
-    </div>
-    <div class="flex-grow-1">
-      <h4 class="text-success">{{ total_km }} Km</h4>
-      <span class="text-secondary">Driven</span>
-    </div>
-  </div>
-  <hr/>
-</div>
+  </nav>
 
-<div class="p-2">
-  <a href="/users/sign-out/" class="btn btn-block btn-danger btn-md mt-2">
-    <i class="bi bi-arrow-bar-right me-1"></i>
-    Sign Out
-  </a>
-</div>
-
-{% include 'courier/bottom_tabs.html' %}
+  <!-- Section -->
+  <section class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-lg-4 text-center">
+          <!-- Visit Box -->
+          <div class="icon-box mb-4">
+            <div class="icon icon-primary mb-4">
+              <span class="fas fa-regular fa-money-bill"></span>
+            </div>
+            <h3 class="h5">Total Earnings</h3>
+            <span class="counter display-3 text-gray d-block">${{ total_earnings }}</span>
+          </div>
+          <!-- End of Visit Box -->
+        </div>
+        <div class="col-md-4 col-lg-4 text-center">
+          <!-- Call Box -->
+          <div class="icon-box mb-4">
+            <div class="icon icon-primary mb-4">
+              <span class="fas fa-check"></span>
+            </div>
+            <h3 class="h5">Completed</h3>
+            <span class="counter display-3 text-gray d-block">{{ total_jobs }} Jobs</span>
+          </div>
+          <!-- End of Call Box -->
+        </div>
+        <div class="col-md-4 col-lg-4 text-center">
+          <!-- Email Box -->
+          <div class="icon-box mb-4">
+            <div class="icon icon-primary mb-4">
+              <span class="fas fa-solid fa-road"></span>
+            </div>
+            <h3 class="h5">Driven</h3>
+            <span class="counter display-3 text-gray d-block">{{ total_km }} Km</span>
+          </div>
+          <!-- End of Email Box -->
+        </div>
+      </div>
+    </div>
+  </section>
+  {% include 'courier/bottom_tabs.html' %}
 
 {% endblock %}

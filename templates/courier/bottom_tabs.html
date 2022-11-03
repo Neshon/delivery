@@ -29,22 +29,21 @@
   }
 
   .bottom-tabs>a.active {
-      color: #FFC106;
+      color: #1c2540;
   }
 </style>
 
-
 <div class="bottom-tabs d-flex">
   <a href="{% url 'available_jobs' %}" class="{% if request.path == '/users/courier/jobs/available/' %} active {% endif %}">
-    <i class="bi bi-map-fill"></i>
+    <i class="fas fa-solid fa-map"></i>
     <span>Available Jobs</span>
   </a>
   <a href="{% url 'current_job' %}" class="{% if request.path == '/users/courier/jobs/current/' or request.path == '/users/courier/jobs/archived/' %} active {% endif %}">
-    <i class="bi bi-archive-fill"></i>
+    <i class="fas fa-archive"></i>
     <span>My Jobs</span>
   </a>
   <a href="{% url 'courier_profile' %}" class="{% if request.path == '/users/courier/profile/' %} active {% endif %}">
-    <i class="bi bi-file-earmark-person-fill"></i>
+    <i class="fas fa-solid fa-user"></i>
     <span>Profile</span>
   </a>
 </div>

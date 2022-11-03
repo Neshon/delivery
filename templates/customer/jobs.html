@@ -1,60 +1,70 @@
 {% extends "customer/base.html" %}
 
 {% block main %}
-<ul class="nav nav-pills nav-fill">
-  <li class="nav-item">
-    <a class="nav-link {% if request.path == "/users/customer/jobs/current/" %} active {% endif %}" aria-current="page" href="{% url 'current_jobs' %}">Current jobs</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link {% if request.path == "/users/customer/jobs/archived/" %} active {% endif %}" href="{% url 'archived_jobs' %}">Archived jobs</a>
-  </li>
-</ul>
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == "/users/customer/jobs/current/" %} active {% endif %}"
+         aria-current="page" href="{% url 'current_jobs' %}">Current jobs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == "/users/customer/jobs/archived/" %} active {% endif %}"
+         href="{% url 'archived_jobs' %}">Archived jobs</a>
+    </li>
+  </ul>
 
-<div class="list-group mt-3">
-  {% if jobs %}
-  {% for job in jobs %}
-  <a href="{% url 'job' job.id %}" class="list-group-item list-group-item-action">
-    <div class="media">
-      <img src="{{ job.photo.url }}" class="rounded-lg mr-3" width="100" height="100">
-      <div class="media-body">
-        <div class="row">
-          <div class="col-lg-9">
-            <h5 class="mb-1">{{ job.name }}</h5>
-            <p>{{ job.descrioption }}</p>
+  <div class="list-group mt-3">
+    {% if jobs %}
+      {% for job in jobs %}
+        <a href="{% url 'job' job.id %}">
+          <section class="section py-0">
+            <div class="container z-2">
+              <div class="row position-relative justify-content-center align-items-center">
+                <div class="col-12">
+                  <!-- Card -->
+                  <div class="card border-d px-4 py-1">
+                    <div class="card-body text-center text-md-left">
+                      <div class="row align-items-center">
+                        <div class="col text-md-left">
+                          <img src="{{ job.photo.url }}" class="rounded-lg" width="60px" height="60px">
+                        </div>
+                        <div class="col-md-8">
+                          <b>{{ job.name }}</b><br/>
+                          <small class="text-success">
+                            <i class="fas fa-car me-1"></i><span>{{ job.distance }}</span> km
+                            <i class="fas fa-clock m-1"></i><span>{{ job.duration }}</span> min
+                          </small>
 
-            <div class="d-flex mb-4">
-              <i class="bi bi-geo-alt-fill me-2"></i>
-              <div class="ml-2">
-                <b>{{ job.pickup_name }}</b><br/>
-                <small>{{ job.pickup_address }}</small>
+                          <div class="d-flex align-items-centre mt-2">
+                            <i class="fas fa-map-pin me-2"></i>
+                            <small class="text-secondary ml-2">{{ job.pickup_address }}</small>
+                          </div>
+
+                          <div class="d-flex align-items-centre mt-2">
+                            <i class="fas fa-flag-checkered me-2"></i>
+                            <small class="text-secondary ml-2">{{ job.delivery_address }}</small>
+                          </div>
+                        </div>
+                        <div class="col text-right">
+                          <h3>${{ job.price }}</h3>
+                          <span id="job_status" class="badge text-bg-warning">{{ job.get_status_display }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
+        </a>
 
-            <div class="d-flex">
-              <i class="bi bi-flag-fill me-2"></i>
-              <div class="ml-2">
-                <b>{{ job.delivery_name }}</b><br/>
-                <small>{{ job.delivery_address }}</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 text-right d-flex flex-column justify-content-between">
-          <div><span class="badge text-bg-warning mb-2">{{ job.get_status_display }}</span> </div>
-          <h2 class="mb-1">${{ job.price }}</h2>
+      {% endfor %}
+    {% else %}
+      <div class="card">
+        <div class="card-body text-center">
+          Nothing to show here yet.
         </div>
       </div>
-    </div>
-  </a>
-
-  {% endfor %}
-  {% else %}
-  <div class="card">
-    <div class="card-body text-center">
-      Nothing to show here yet.
-    </div>
+    {% endif %}
   </div>
-  {% endif %}
-</div>
 
 {% endblock %}

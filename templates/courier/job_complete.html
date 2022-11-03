@@ -3,11 +3,11 @@
 
 {% block content %}
 
-<div class="h-100 d-flex flex-column align-items-center justify-content-center">
-  <img src="{% static 'img/complete.gif' %}" class="mb-3" width="200" height="200">
-  <p>Your job was completed! Well done.</p>
+  <div class="h-100 d-flex flex-column align-items-center justify-content-center">
+    <img src="{% static 'img/complete.gif' %}" class="mb-3" width="200" height="200">
+    <p>Your job was completed! Well done.</p>
 
-  <a href="{% url 'available_jobs' %}" class="btn btn-warning">Check available jobs</a>
-</div>
+    <a href="{% url 'available_jobs' %}" class="btn btn-secondary">Check available jobs</a>
+  </div>
 
 {% endblock %}

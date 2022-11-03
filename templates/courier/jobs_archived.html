@@ -2,81 +2,80 @@
 
 {% block head %}
 
+  <style>
+      small {
+          font-size: 12px;
+          line-height: 1.2rem;
+      }
 
-<style>
-  small {
-      font-size: 12px;
-      line-height: 1.2rem;
-  }
-
-  .card {
-      border-radius: 0;
-  }
-
-</style>
+  </style>
 
 {% endblock %}
 
 {% block content %}
 
-<div class="d-flex flex-column h-100" style="padding-bottom: 60px">
+  <div class="d-flex flex-column h-100" style="padding-bottom: 60px">
 
-  <div class="text-center">
-    <div class="btn-group mt-1 mb-1 align-item-center" role="group">
-      <a href="{% url 'current_job' %}" class="btn btn-outline-warning">Current Job</a>
-      <a href="{% url 'jobs_archived' %}" class="btn btn-warning">Archived Jobs</a>
+    <div class="text-center">
+      <div class="btn-group mt-1 mb-1 align-item-center" role="group">
+        <a href="{% url 'current_job' %}" class="btn btn-outline-secondary">Current Job</a>
+        <a href="{% url 'jobs_archived' %}" class="btn btn-secondary">Archived Jobs</a>
+      </div>
     </div>
-  </div>
 
-  {% if jobs %}
+    {% if jobs %}
 
-  {% for job in jobs %}
-  <div class="card">
-    <div class="card-body p-2">
-      <div class="media">
-        <img src="{{ job.photo.url }}" class="rounded-lg mr-3" width="50px" height="50px">
-        <div class="media-body">
-          <b>{{ job.name }}</b>
-          <div class="d-flex">
-            <div class="flex-grow-1 mr-2">
+      {% for job in jobs %}
+        <section class="section py-0">
+          <div class="container z-2">
+            <div class="row position-relative justify-content-center align-items-center">
+              <div class="col-12">
+                <!-- Card -->
+                <div class="card border-d px-4 py-1">
+                  <div class="card-body text-center text-md-left">
+                    <div class="row align-items-center">
+                      <div class="col text-md-left">
+                        <img src="{{ job.photo.url }}" class="rounded-lg" width="80px" height="80px">
+                      </div>
+                      <div class="col-md-8">
+                        <b>{{ job.name }}</b><br/>
+                        <small class="text-success">
+                          <i class="fas fa-car me-1"></i><span>{{ job.distance }}</span> km
+                          <i class="fas fa-clock m-1"></i><span>{{ job.duration }}</span> min
+                        </small>
 
-              <small class="text-success">
-                <i class="bi bi-car-front-fill me-1"></i><span>{{ job.distance }}</span> km
-                <i class="bi bi-clock-fill m-1"></i><span>{{ job.duration }}</span> min
-              </small>
+                        <div class="d-flex align-items-centre mt-2">
+                          <i class="fas fa-map-pin me-2"></i>
+                          <small class="text-secondary ml-2">{{ job.pickup_address }}</small>
+                        </div>
 
-              <div class="d-flex align-items-centre mt-2">
-                <i class="bi bi-geo-alt-fill me-2"></i>
-                <small class="text-secondary">{{ job.pickup_address }}</small>
+                        <div class="d-flex align-items-centre mt-2">
+                          <i class="fas fa-flag-checkered me-2"></i>
+                          <small class="text-secondary ml-2">{{ job.delivery_address }}</small>
+                        </div>
+                      </div>
+                      <div class="col text-right">
+                        <h3>${{ job.price }}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <div class="d-flex align-items-centre mt-2">
-                <i class="bi bi-flag-fill me-2"></i>
-                <small class="text-secondary">{{ job.delivery_address }}</small>
-              </div>
-
             </div>
-
-            <h3>${{ job.price }}</h3>
-
           </div>
-        </div>
+        </section>
+      {% endfor %}
+    {% else %}
+
+      <div id="main" class="text-center">
+        <p>You have no job now. Let's pick a new</p>
       </div>
 
-    </div>
+    {% endif %}
+
   </div>
-  {% endfor %}
-  {% else %}
-
-    <div id="main" class="text-center">
-      <p>You have no job now. Let's pick a new</p>
-    </div>
-
-  {% endif %}
-
-</div>
 
 
-{% include 'courier/bottom_tabs.html' %}
+  {% include 'courier/bottom_tabs.html' %}
 
 {% endblock %}

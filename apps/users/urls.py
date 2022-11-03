@@ -3,9 +3,9 @@ from django.contrib.auth import views as auth_views
 from . import views, apis
 
 urlpatterns = [
-    path('sign-in/', auth_views.LoginView.as_view(template_name='sign_in.html')),
-    path('sign-out/', auth_views.LogoutView.as_view(next_page='')),
-    path('sign-up/', views.sign_up),
+    path('signin/', auth_views.LoginView.as_view(template_name='signin.html')),
+    path('signout/', auth_views.LogoutView.as_view(next_page='')),
+    path('signup/', views.signup),
     path('accounts/', include('allauth.urls')),
 
     path('courier/', views.courier_page, name='home'),

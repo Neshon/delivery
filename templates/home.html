@@ -1,34 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
   <div class="container">
     <div class="row">
-    <div class="col-lg-12">
-      <h1 class="text-center mt-5 mb-5">Welcome</h1>
-    </div>
+      <div class="col-md">
+        <h1 class="text-center mt-4 mb-4">customer</h1>
+        <a href="{% if user.is_authenticated %}/users/customer/{% else %}/users/signin/?next=/users/customer/{% endif %}"
+           class="page-preview scale-up-hover-2">
+          <img class="shadow-lg rounded scale" src="{% static '/img/customer_img.jpg' %}">
+          <div class="text-center show-on-hover">
+            <h3 class="h6 m-0 text-center text-white">customer</h3>
+          </div>
+        </a>
+      </div>
 
-    <div class="col-lg-6 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">customer</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="{% if user.is_authenticated %}/users/customer/{% else %}/users/sign-in/?next=/users/customer/{% endif %}" class="btn btn-warning">Details</a>
-        </div>
+      <div class="col-md">
+        <h1 class="text-center mt-4 mb-4">courier</h1>
+        <a href="{% if user.is_authenticated %}/users/courier/jobs/available/{% else %}/users/signin/?next=/users/courier/jobs/available/{% endif %}"
+           class="page-preview scale-up-hover-2">
+          <img class="shadow-lg rounded scale" src="{% static '/img/courier_img.jpg' %}">
+          <div class="text-center show-on-hover">
+            <h3 class="h6 m-0 text-center text-white">courier</h3>
+          </div>
+        </a>
       </div>
     </div>
-
-    <div class="col-lg-6 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">courier</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="{% if user.is_authenticated %}/users/courier/jobs/available/{% else %}/users/sign-in/?next=/users/courier/jobs/available/{% endif %}" class="btn btn-warning">Details</a>
-        </div>
-      </div>
-    </div>
-    </div>
-
   </div>
 
 {% endblock %}

@@ -2,38 +2,34 @@
 {% load bootstrap5 %}
 
 {% block head %}
-
-
 {% endblock %}
 
 {% block main %}
-<!-- Basic Information -->
-<b class="text-secondary">Basic Information</b><br/>
-<div class="card bg-white mt-2 mb-5">
-  <div class="card-body">
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% bootstrap_form user_form %}
-      {% bootstrap_form customer_form %}
-      <input type="hidden" name="action" value="update_profile">
-      <button type="submit" class="btn btn-warning">Save</button>
-    </form>
+  <!-- Basic Information -->
+  <b class="text-secondary">Basic Information</b><br/>
+  <div class="card bg-white mt-2 mb-5">
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form user_form %}
+        {% bootstrap_form customer_form %}
+        <input type="hidden" name="action" value="update_profile">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<!-- Change Password -->
-<b class="text-secondary">Change Password</b><br/>
-<div class="card bg-white mt-2 mb-5">
-  <div class="card-body">
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% bootstrap_form password_form %}
-      <input type="hidden" name="action" value="update_password">
-      <button type="submit" class="btn btn-warning">Save</button>
-    </form>
+  <!-- Change Password -->
+  <b class="text-secondary">Change Password</b><br/>
+  <div class="card bg-white mt-2 mb-5">
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form password_form %}
+        <input type="hidden" name="action" value="update_password">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
   </div>
-</div>
-
-
 
 {% endblock %}

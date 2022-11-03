@@ -9,7 +9,7 @@ from .models import Job
 
 
 @csrf_exempt
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def available_jobs_api(request):
     jobs = list(Job.objects.filter(status=Job.PROCESSING_STATUS).values())
 
@@ -20,7 +20,7 @@ def available_jobs_api(request):
 
 
 @csrf_exempt
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def current_job_update_api(request, id):
     job = Job.objects.filter(
         id=id,

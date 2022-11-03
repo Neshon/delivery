@@ -19,19 +19,19 @@ def home(request):
 
 
 # courier
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def courier_page(request):
     return render(request, 'home.html')
 
 
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def available_jobs_page(request):
     return render(request, 'courier/available_jobs.html', {
         'google_map_api_key': settings.GOOGLE_MAP_API_KEY,
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def available_job_page(request, id):
     job = Job.objects.filter(id=id, status=Job.PROCESSING_STATUS).last()
 
@@ -61,7 +61,7 @@ def available_job_page(request, id):
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def current_job_page(request):
     job = Job.objects.filter(courier=request.user.courier,
                              status__in=[
@@ -76,7 +76,7 @@ def current_job_page(request):
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def current_job_take_photo_page(request, id):
     job = Job.objects.filter(
         id=id,
@@ -95,12 +95,12 @@ def current_job_take_photo_page(request, id):
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def job_complete_page(request):
     return render(request, 'courier/job_complete.html')
 
 
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def jobs_archived_page(request):
     jobs = Job.objects.filter(
         courier=request.user.courier,
@@ -112,7 +112,7 @@ def jobs_archived_page(request):
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/courier/')
+@login_required(login_url='/users/signin/?next=/users/courier/')
 def courier_profile(request):
     jobs = Job.objects.filter(
         courier=request.user.courier,
@@ -121,7 +121,7 @@ def courier_profile(request):
 
     total_earnings = round(sum(job.price for job in jobs) * 0.8, 2)
     total_jobs = len(jobs)
-    total_km = sum(job.distance for job in jobs)
+    total_km = round(sum(job.distance for job in jobs), 2)
 
     return render(request, 'courier/profile.html', {
         'total_earnings': total_earnings,
@@ -131,12 +131,12 @@ def courier_profile(request):
 
 
 # customer
-@login_required(login_url='/sign-in/?next=/users/customer/')
+@login_required(login_url='/users/signin/?next=/users/customer/')
 def customer_page(request):
     return redirect(reverse('profile'))
 
 
-@login_required(login_url='/sign-in/?next=/users/customer/')
+@login_required(login_url='/users/signin/?next=/users/customer/')
 def customer_profile(request):
     user_form = forms.BasicUserForm(instance=request.user)
     customer_form = forms.BasicCustomerForm(instance=request.user.customer)
@@ -174,7 +174,7 @@ def customer_profile(request):
                   })
 
 
-@login_required(login_url='/sign-in/?next=/users/customer/')
+@login_required(login_url='/users/signin/?next=/users/customer/')
 def create_job_page(request):
     current_customer = request.user.customer
     has_current_job = Job.objects.filter(customer=current_customer,
@@ -204,7 +204,6 @@ def create_job_page(request):
                 creating_job.customer = current_customer
                 creating_job.save()
 
-                messages.success(request, "You job has been created")
                 return redirect(reverse('create_job'))
 
         elif request.POST.get('step') == '2':
@@ -213,7 +212,6 @@ def create_job_page(request):
             if step2_form.is_valid():
                 creating_job = step2_form.save()
 
-                messages.success(request, "You pickup has been created")
                 return redirect(reverse('create_job'))
 
         elif request.POST.get('step') == '3':
@@ -233,14 +231,14 @@ def create_job_page(request):
                     duration = r.json()['rows'][0]['elements'][0]['duration']['value']
                     creating_job.distance = round(distance / 1000, 2)
                     creating_job.duration = int(duration / 60)
-                    creating_job.price = creating_job.distance * 5
+                    creating_job.price = round(creating_job.distance * 5, 2)
                     creating_job.save()
                 except Exception as e:
                     print(e)
                     messages.error(request, "Error in google api")
                 creating_job.status = Job.PROCESSING_STATUS
                 creating_job.save()
-                messages.success(request, "You delivery has been created")
+
                 return redirect(reverse('create_job'))
 
     if not creating_job:
@@ -260,7 +258,7 @@ def create_job_page(request):
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/customer/')
+@login_required(login_url='/users/signin/?next=/users/customer/')
 def current_jobs_page(request):
     jobs = Job.objects.filter(customer=request.user.customer,
                               status__in=[
@@ -273,7 +271,7 @@ def current_jobs_page(request):
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/customer/')
+@login_required(login_url='/users/signin/?next=/users/customer/')
 def job_page(request, job_id):
     job = Job.objects.get(id=job_id)
 
@@ -288,7 +286,7 @@ def job_page(request, job_id):
     })
 
 
-@login_required(login_url='/sign-in/?next=/users/customer/')
+@login_required(login_url='/users/signin/?next=/users/customer/')
 def archived_jobs_page(request):
     jobs = Job.objects.filter(customer=request.user.customer,
                               status__in=[
@@ -300,7 +298,7 @@ def archived_jobs_page(request):
     })
 
 
-def sign_up(request):
+def signup(request):
     form = forms.SignUpForm()
     if request.method == 'POST':
         form = forms.SignUpForm(request.POST)
@@ -313,4 +311,4 @@ def sign_up(request):
             login(request, user,
                   backend='django.contrib.auth.backends.ModelBackend')
             return redirect('/')
-    return render(request, 'sign_up.html', {'form': form})
+    return render(request, 'signup.html', {'form': form})
