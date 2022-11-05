@@ -62,9 +62,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://delivery12.herokuapp.com/',
-]
 
 TEMPLATES = [
     {
@@ -155,6 +152,11 @@ else:
 
 MEDIA_ROOT = Path(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://delivery12.herokuapp.com'
+]
 
 
 SITE_ID = 1
