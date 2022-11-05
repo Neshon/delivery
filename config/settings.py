@@ -62,6 +62,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://delivery12.herokuapp.com/',
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
