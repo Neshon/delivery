@@ -1,1 +1,1 @@
-web: daphne config.wsgi:application -p $PORT -b 0.0.0.0 -v2
+web: daphne config.asgi:application -p $PORT -b 0.0.0.0 -v2
