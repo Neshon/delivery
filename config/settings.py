@@ -18,7 +18,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'delivery12.herokuapp.com'
+    'web-production-1f34.up.railway.app'
 ]
 
 
@@ -89,7 +89,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": ["redis://:pddf587790ac2bf67a579411764b426bc37941a3300154850ab3a10da88f772e7@ec2-34-242-78-122.eu-west-1.compute.amazonaws.com:28350"],
+            "hosts": ["redis://default:0MTD5ONC9QyoEbbNnvSH@containers-us-west-101.railway.app:6508"],
         },
     },
 }
@@ -155,7 +155,7 @@ MEDIA_URL = '/media/'
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://delivery12.herokuapp.com'
+    'https://web-production-1f34.up.railway.app'
 ]
 
 
