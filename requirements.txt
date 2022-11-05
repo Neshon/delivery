@@ -43,5 +43,6 @@ txaio==22.2.1
 types-cryptography==3.3.23.1
 typing_extensions==4.4.0
 urllib3==1.26.12
+whitenoise==6.2.0
 wrapt==1.14.1
 zope.interface==5.5.0
