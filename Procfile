@@ -1,1 +1,3 @@
-web: daphne config.asgi:application -p $PORT -b 0.0.0.0 -v2
+release: python3 manage.py makemigrations && python3 manage.py migrate
+web: daphne config.asgi:application --port $PORT --bind 0.0.0.0 -v2
+worker: python3 manage.py runworker channel_layer -v2
