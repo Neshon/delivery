@@ -1,36 +1,24 @@
 import uuid
 
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils import timezone
+from django.utils.text import slugify
 
-
-class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='customer/avatar/',
-                               blank=True,
-                               null=True)
-    phone_number = models.CharField(max_length=50, blank=True)
-
-    def __str__(self):
-        return self.user.get_full_name()
-
-
-class Courier(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    lat = models.FloatField(default=0)
-    lng = models.FloatField(default=0)
-
-    def __str__(self):
-        return self.user.get_full_name()
+from apps.courier.models import Courier
+from apps.customer.models import Customer
 
 
 class Category(models.Model):
-    slug = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.slug is None:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class Job(models.Model):

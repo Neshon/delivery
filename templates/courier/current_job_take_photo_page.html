@@ -59,7 +59,7 @@
     <video id="webcam" autoplay playsinline></video>
     <canvas id="canvas" class="d-none"></canvas>
 
-    <a href="{% url 'current_job' %}" class="btn-back">
+    <a href="{% url 'courier:current_job' %}" class="btn-back">
       <i class="fas fa-arrow-left" style="font-size: 1.5rem"></i>
     </a>
 
@@ -106,7 +106,7 @@
                   })
                   .then(function (json) {
                       if (json.success) {
-                          window.location.href = "{% if job.status == 'picking' %}{% url 'current_job' %}{% else %}{% url 'job_complete' %}{% endif %}"
+                          window.location.href = "{% if job.status == 'picking' %}{% url 'courier:current_job' %}{% else %}{% url 'courier:job_complete' %}{% endif %}"
                       }
                   })
           })

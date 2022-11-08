@@ -11,13 +11,13 @@
   <title>Home page</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{% static '/img/logo.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}">
 
   <!-- Fontawesome -->
   <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 
   <!-- Pixel CSS -->
-  <link type="text/css" href="{% static '/css/pixel.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'css/pixel.css' %}" rel="stylesheet">
 
   {% block head %}
   {% endblock %}
@@ -35,10 +35,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item {% if request.GET.next != '/courier/' %}active{% endif %}">
-            <a class="nav-link active" aria-current="page" href="/users/signin/?next=/users/customer/">customer</a>
+            <a class="nav-link active" aria-current="page" href="/users/signin/?next=/customer/">customer</a>
           </li>
           <li class="nav-item {% if request.GET.next == '/courier/' %}active{% endif %}">
-            <a class="nav-link active" aria-current="page" href="/users/signin/?next=/users/courier/jobs/available/">courier</a>
+            <a class="nav-link active" aria-current="page" href="/users/signin/?next=/courier/jobs/available/">courier</a>
           </li>
         </ul>
       </div>
@@ -64,20 +64,20 @@
     {% endfor %}
   </div>
 {% endif %}
-<script src="{% static '/vendor/@popperjs/core/dist/umd/popper.min.js' %}"></script>
-<script src="{% static '/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-<script src="{% static '/vendor/headroom.js/dist/headroom.min.js' %}"></script>
+<script src="{% static 'vendor/@popperjs/core/dist/umd/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/headroom.js/dist/headroom.min.js' %}"></script>
 
 <!-- Vendor JS -->
-<script src="{% static '/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
-<script src="{% static '/vendor/jarallax/dist/jarallax.min.js' %}"></script>
-<script src="{% static '/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
-<script src="{% static '/vendor/vivus/dist/vivus.min.js' %}"></script>
-<script src="{% static '/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
+<script src="{% static 'vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+<script src="{% static 'vendor/jarallax/dist/jarallax.min.js' %}"></script>
+<script src="{% static 'vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+<script src="{% static 'vendor/vivus/dist/vivus.min.js' %}"></script>
+<script src="{% static 'vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 <!-- Pixel JS -->
-<script src="{% static '/js/pixel.js' %}"></script>
+<script src="{% static 'js/pixel.js' %}"></script>
 </body>
 </html>

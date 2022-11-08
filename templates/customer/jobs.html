@@ -3,19 +3,19 @@
 {% block main %}
   <ul class="nav nav-pills nav-fill">
     <li class="nav-item">
-      <a class="nav-link {% if request.path == "/users/customer/jobs/current/" %} active {% endif %}"
-         aria-current="page" href="{% url 'current_jobs' %}">Current jobs</a>
+      <a class="nav-link {% if request.path == "/customer/jobs/current/" %} active {% endif %}"
+         aria-current="page" href="{% url 'customer:current_jobs' %}">Current jobs</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {% if request.path == "/users/customer/jobs/archived/" %} active {% endif %}"
-         href="{% url 'archived_jobs' %}">Archived jobs</a>
+      <a class="nav-link {% if request.path == "/customer/jobs/archived/" %} active {% endif %}"
+         href="{% url 'customer:archived_jobs' %}">Archived jobs</a>
     </li>
   </ul>
 
   <div class="list-group mt-3">
     {% if jobs %}
       {% for job in jobs %}
-        <a href="{% url 'job' job.id %}">
+        <a href="{% url 'customer:job' job.id %}">
           <section class="section py-0">
             <div class="container z-2">
               <div class="row position-relative justify-content-center align-items-center">

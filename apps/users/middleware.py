@@ -1,4 +1,5 @@
-from .models import Customer, Courier
+from apps.courier.models import Courier
+from apps.customer.models import Customer
 
 
 class ProfileMiddleware:

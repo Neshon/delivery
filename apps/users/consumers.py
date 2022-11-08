@@ -2,12 +2,11 @@ import json
 
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from . import models
 
 
 class JobConsumer(WebsocketConsumer):
     def connect(self):
-        print(self.scope)
+        # print(self.scope)
         self.job_id = self.scope["url_route"]["kwargs"]["job_id"]
         self.job_group_name = "job_%s" % self.job_id
 
@@ -27,7 +26,7 @@ class JobConsumer(WebsocketConsumer):
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
         job = text_data_json["job"]
-        print('Job', job)
+        # print('Job', job)
 
         if job.get('courier_lat') and job.get('courier_lng'):
             self.scope['user'].courier.lat = job['courier_lat']
