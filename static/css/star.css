@@ -1,0 +1,30 @@
+#id_rating .rating-group {
+  display: inline-flex;
+}
+#id_rating .rating__icon {
+  pointer-events: none;
+}
+#id_rating .rating__input {
+  position: absolute !important;
+  left: -9999px !important;
+}
+#id_rating .rating__input--none {
+  display: none;
+}
+#id_rating .rating__label {
+  cursor: pointer;
+  padding: 0 0.1em;
+  font-size: 2rem;
+}
+#id_rating .rating__icon--star {
+  color: orange;
+}
+#id_rating .rating__input:checked ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+#id_rating .rating-group:hover .rating__label .rating__icon--star {
+  color: orange;
+}
+#id_rating .rating__input:hover ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}

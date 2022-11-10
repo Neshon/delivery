@@ -1,5 +1,5 @@
 {% extends 'customer/base.html' %}
-
+{% load rating %}
 {% block head %}
 
   <style>
@@ -168,6 +168,11 @@
 
     </div>
   </div>
+  {% if job.status == 'completed' %}
+    <div>
+      {% rating object=job role='customer' %}
+    </div>
+  {% endif %}
   <div class="d-flex justify-content-between">
     <b class="text-secondary">DELIVERY INFORMATION</b>
     <div>

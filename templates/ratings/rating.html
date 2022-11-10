@@ -1,0 +1,35 @@
+{% load static %}
+<link type="text/css" href="{% static 'css/star.css' %}" rel="stylesheet">
+
+{% if rated %}
+  <span id="job_status" class="badge text-bg-warning mb-4">
+    <h5>{{ rated }}</h5>
+  </span>
+{% endif %}
+
+{% if avg_rating %}
+  {{ avg_rating }}
+{% endif %}
+
+{% if form %}
+  <form method="POST" action="/object-rate/">
+    {% csrf_token %}
+    <div id="id_rating">
+      <h3>Rate the courier</h3>
+      <div class="rating-group">
+        <input disabled checked class="rating__input rating__input--none"
+               name="rating" id="rating3-none" value="0" type="radio">
+        {% for star in form.rating %}
+          <label for="{{ star.id_for_label }}" class="rating__label">
+            <i class="rating__icon rating__icon--star fa fa-star"></i>
+          </label>
+          {{ star.tag }}
+        {% endfor %}
+      </div>
+    </div>
+    {% for hidden_field in form.hidden_fields %}
+      {{ hidden_field }}
+    {% endfor %}
+    <input type="submit" class="btn btn-secondary" value="Submit"/>
+  </form>
+{% endif %}

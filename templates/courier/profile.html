@@ -1,6 +1,6 @@
 {% extends 'courier/base.html' %}
 {% load static %}
-
+{% load rating %}
 
 {% block content %}
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -8,14 +8,14 @@
       <img src="{% static 'img/avatar.png' %}" class="rounded-circle" width="60" height="60">
       {% if not request.user.is_authenticated %}
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <h4 class="text-light mb-0">{{ request.user.get_full_name }}</h4>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <h4 class="text-light mb-0">{{ request.user.get_full_name }}</h4>
+        </div>
       {% else %}
-      <form class="form-inline">
-        <span class="mr-4 text-light me-2">{{ request.user.get_full_name|title }}</span>
-        <a href="/users/signout" class="btn btn-outline-gray-100 d-none d-lg-inline">Sign out</a>
-      </form>
+        <form class="form-inline">
+          <span class="mr-4 text-light me-2">{{ request.user.get_full_name|title }}</span>
+          <a href="/users/signout" class="btn btn-outline-gray-100 d-none d-lg-inline">Sign out</a>
+        </form>
       {% endif %}
     </div>
   </nav>
@@ -24,8 +24,7 @@
   <section class="section">
     <div class="container">
       <div class="row">
-        <div class="col-md-4 col-lg-4 text-center">
-          <!-- Visit Box -->
+        <div class="col text-center">
           <div class="icon-box mb-4">
             <div class="icon icon-primary mb-4">
               <span class="fas fa-regular fa-money-bill"></span>
@@ -33,10 +32,8 @@
             <h3 class="h5">Total Earnings</h3>
             <span class="counter display-3 text-gray d-block">${{ total_earnings }}</span>
           </div>
-          <!-- End of Visit Box -->
         </div>
-        <div class="col-md-4 col-lg-4 text-center">
-          <!-- Call Box -->
+        <div class="col text-center">
           <div class="icon-box mb-4">
             <div class="icon icon-primary mb-4">
               <span class="fas fa-check"></span>
@@ -44,10 +41,8 @@
             <h3 class="h5">Completed</h3>
             <span class="counter display-3 text-gray d-block">{{ total_jobs }} Jobs</span>
           </div>
-          <!-- End of Call Box -->
         </div>
-        <div class="col-md-4 col-lg-4 text-center">
-          <!-- Email Box -->
+        <div class="col text-center">
           <div class="icon-box mb-4">
             <div class="icon icon-primary mb-4">
               <span class="fas fa-solid fa-road"></span>
@@ -55,11 +50,22 @@
             <h3 class="h5">Driven</h3>
             <span class="counter display-3 text-gray d-block">{{ total_km }} Km</span>
           </div>
-          <!-- End of Email Box -->
+        </div>
+        <div class="col text-center">
+          <div class="icon-box mb-4">
+            <div class="icon icon-primary mb-4">
+              <span class="fa-solid fa-star"></span>
+            </div>
+            <h3 class="h5">Rating</h3>
+            <span class="counter display-3 text-gray d-block">
+              {% rating object=request.user role='courier' %}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
   {% include 'courier/bottom_tabs.html' %}
 
 {% endblock %}

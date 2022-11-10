@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+
+from apps.ratings.views import rate_object_view
 from apps.users import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,6 +15,7 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),
     path('customer/', include('apps.customer.urls')),
     path('courier/', include('apps.courier.urls')),
+    path('object-rate/', rate_object_view)
 ]
 
 if settings.DEBUG:
