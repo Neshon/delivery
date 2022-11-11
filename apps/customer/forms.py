@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from .models import Customer
-from apps.users.models import Job
+from apps.delivery.models import Job
 
 
 class BasicUserForm(forms.ModelForm):

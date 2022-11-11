@@ -11,7 +11,7 @@ from django.contrib.auth import update_session_auth_hash
 from apps.customer import forms
 from config.settings import base
 
-from apps.users.models import Job
+from apps.delivery.models import Job
 
 
 @login_required(login_url='/users/signin/?next=/customer/')

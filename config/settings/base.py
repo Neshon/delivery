@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.ratings.apps.RatingsConfig',
     'apps.customer.apps.CustomerConfig',
     'apps.courier.apps.CourierConfig',
+    'apps.delivery.apps.DeliveryConfig',
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

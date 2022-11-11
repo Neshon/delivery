@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from apps.ratings.views import rate_object_view
-from apps.users import views
+from apps.delivery import views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('delivery/', include('apps.delivery.urls')),
     path('users/', include('apps.users.urls')),
     path('customer/', include('apps.customer.urls')),
     path('courier/', include('apps.courier.urls')),

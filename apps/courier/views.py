@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from config.settings import base
-from apps.users.models import Job
+from apps.delivery.models import Job
 
 
 @login_required(login_url='/users/signin/?next=/courier/')

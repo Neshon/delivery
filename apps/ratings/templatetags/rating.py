@@ -26,8 +26,6 @@ def rating(context, *args, **kwargs):
         try:
             rating_courier = Rating.objects.get(
                 user=customer,
-                content_type_user=c_type_courier,
-                object_id_user=obj.courier.id,
                 content_type_job=c_type_job,
                 object_id_job=obj.id,
             )
