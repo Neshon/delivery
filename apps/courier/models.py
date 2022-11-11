@@ -1,15 +1,15 @@
-from django.db import models
+# from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db.models import Avg
-
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 from apps.ratings.models import Rating
 
 
 class Courier(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    lat = models.FloatField(default=0)
-    lng = models.FloatField(default=0)
+    location = models.PointField(geography=True, default=Point(0.0, 0.0))
     ratings = GenericRelation(Rating, related_query_name='courier')
 
     def __str__(self):
