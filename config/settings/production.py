@@ -30,6 +30,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = True  # !важно
 
 
-CSRF_TRUSTED_ORIGINS = [
-    os.environ.get('ALLOWED_HOSTS')
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     os.environ.get('ALLOWED_HOSTS')
+# ]
