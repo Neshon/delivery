@@ -160,7 +160,7 @@
         </div>
       </div>
       {% if job.status == 'processing' %}
-        <form id="form" method="POST" class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <form id="form" method="POST" class="text-right">
           {% csrf_token %}
           <button type="submit" class="btn btn-danger">Cancel Job</button>
         </form>
