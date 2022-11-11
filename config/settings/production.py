@@ -3,7 +3,6 @@ import dj_database_url
 
 DEBUG = False
 
-INSTALLED_APPS += ['django.contrib.gis']
 
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)
@@ -11,7 +10,7 @@ INSTALLED_APPS += ['django.contrib.gis']
 DATABASES = {
     "default": dj_database_url.config()
 }
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
 
 STATIC_ROOT = Path(BASE_DIR, "static")
 

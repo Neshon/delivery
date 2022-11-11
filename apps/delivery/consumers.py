@@ -24,9 +24,10 @@ class JobConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         job = text_data_json["job"]
         # print('Job', job)
+
         if job.get('courier_lat') and job.get('courier_lng'):
-            self.scope['user'].courier.location[1] = job['courier_lat']
-            self.scope['user'].courier.location[0] = job['courier_lng']
+            self.scope['user'].courier.lat = job['courier_lat']
+            self.scope['user'].courier.lng = job['courier_lng']
             self.scope['user'].courier.save()
 
         self.channel_layer.group_send(
