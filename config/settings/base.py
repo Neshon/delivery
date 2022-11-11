@@ -15,9 +15,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', default=True)
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-]
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', default='127.0.0.1')]
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -53,7 +52,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ROOT_URLCONF = "config.urls"
 
-INTERNAL_IPS = ["127.0.0.1"]
 
 ASGI_APPLICATION = 'config.asgi.application'
 WSGI_APPLICATION = "config.wsgi.application"
@@ -62,7 +60,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": os.environ.get('REDIS_URL', default=[("127.0.0.1", 6379)])
         },
     },
 }
@@ -190,7 +188,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
@@ -225,3 +223,6 @@ BOOTSTRAP5 = {
 # ==============================================================================
 
 GOOGLE_MAP_API_KEY = os.environ.get('GOOGLE_MAP_API_KEY')
+
+
+INTERNAL_IPS = ["127.0.0.1"]

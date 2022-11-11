@@ -31,5 +31,5 @@ SESSION_COOKIE_SECURE = True  # !важно
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-1f34.up.railway.app'
+    os.environ.get('ALLOWED_HOSTS')
 ]
