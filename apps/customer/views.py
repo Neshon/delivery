@@ -22,20 +22,21 @@ def customer_page(request):
 @login_required(login_url='/users/signin/?next=/customer/')
 def customer_profile(request):
     user_form = forms.BasicUserForm(instance=request.user)
-    customer_form = forms.BasicCustomerForm(instance=request.user.customer)
+    # customer_form = forms.BasicCustomerForm(instance=request.user.customer)
     password_form = PasswordChangeForm(request.user)
 
     if request.method == 'POST':
         if request.POST.get('action') == 'update_profile':
             user_form = forms.BasicUserForm(request.POST,
+                                            request.FILES,
                                             instance=request.user)
-            customer_form = forms.BasicCustomerForm(request.POST,
-                                                    request.FILES,
-                                                    instance=request.user.customer)
+            # customer_form = forms.BasicCustomerForm(request.POST,
+            #                                         request.FILES,
+            #                                         instance=request.user.customer)
 
-            if user_form.is_valid() and customer_form.is_valid():
+            if user_form.is_valid():
                 user_form.save()
-                customer_form.save()
+                # customer_form.save()
 
                 messages.success(request, "You profile has been updated")
                 return redirect(reverse('customer:profile'))
@@ -52,7 +53,7 @@ def customer_profile(request):
     return render(request, 'customer/profile.html',
                   {
                       'user_form': user_form,
-                      'customer_form': customer_form,
+                      # 'customer_form': customer_form,
                       'password_form': password_form
                   })
 
@@ -126,7 +127,7 @@ def create_job_page(request):
 
     if not creating_job:
         current_step = 1
-    elif creating_job.pickup_name:
+    elif creating_job.pickup_phone:
         current_step = 3
     else:
         current_step = 2

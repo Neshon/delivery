@@ -1,37 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}Customer{% endblock %}
 
 {% block content %}
-
-
   <div class="container bg-light mt-4 pt-3 pb-3">
     <div class="row">
       <div class="col-lg-4">
         <div class="text-center">
-          <img src="{% if request.user.customer.avatar %}{{ request.user.customer.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+          <img src="{% if request.user.avatar %}{{ request.user.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                alt="" class="rounded-circle mb-2" width="100" height="100">
           <h4>{{ request.user.get_full_name }}</h4>
           <p class="text-secondary">{{ request.user.email }}</p>
         </div>
         <div class="list-group mt-5">
           <a href="{% url 'customer:create_job' %}"
-             class="list-group-item list-group-item-action {% if request.path == '/customer/create_job/' %} active {% endif %}">Create
-            a Job</a>
+             class="list-group-item list-group-item-action {% if request.path == '/customer/create_job/' %} active {% endif %}">
+            Create a Job</a>
           <a href="{% url 'customer:current_jobs' %}"
-             class="list-group-item list-group-item-action {% if request.path == '/customer/jobs/current/' or request.path == '/customer/jobs/archived/' %} active {% endif %}">My
-            Jobs</a>
+             class="list-group-item list-group-item-action {% if request.path == '/customer/jobs/current/' or request.path == '/customer/jobs/archived/' %} active {% endif %}">
+            My Jobs</a>
           <a href="{% url 'customer:profile' %}"
-             class="list-group-item list-group-item-action {% if request.path == '/customer/profile/' %} active {% endif %}">Profile
-            Information</a>
+             class="list-group-item list-group-item-action {% if request.path == '/customer/profile/' %} active {% endif %}">
+            Profile Information</a>
         </div>
       </div>
       <div class="col-lg-8">
         {% block main %}
-
         {% endblock %}
       </div>
     </div>
   </div>
-
 {% endblock %}

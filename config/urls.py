@@ -11,10 +11,9 @@ urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('', views.home),
-    path('delivery/', include('apps.delivery.urls')),
     path('users/', include('apps.users.urls')),
     path('customer/', include('apps.customer.urls')),
-    path('courier/', include('apps.courier.urls')),
+    path('courier/', include('apps.delivery.urls')),
     path('object-rate/', rate_object_view)
 ]
 

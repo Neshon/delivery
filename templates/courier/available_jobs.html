@@ -15,7 +15,7 @@
                       center: {lat: position.coords.latitude || 41.85, lng: position.coords.longitude || 41.85},
                   });
 
-                  fetch("{% url 'available_jobs_api' %}")
+                  fetch("{% url 'courier:available_jobs_api' %}")
                       .then(response => response.json())
                       .then(json => {
 

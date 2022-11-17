@@ -3,9 +3,23 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib.contenttypes.fields import GenericRelation
 
-from apps.courier.models import Courier
+from phonenumber_field.modelfields import PhoneNumberField
+
+from apps.ratings.models import Rating
+from apps.users.models import User
 from apps.customer.models import Customer
+
+
+class Courier(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    lat = models.FloatField(default=0)
+    lng = models.FloatField(default=0)
+    ratings = GenericRelation(Rating, related_query_name='courier')
+
+    def __str__(self):
+        return self.user.get_full_name()
 
 
 class Category(models.Model):
@@ -48,9 +62,10 @@ class Job(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    courier = models.ForeignKey(Courier, on_delete=models.CASCADE, null=True, blank=True)
+    courier = models.ForeignKey(Courier, on_delete=models.CASCADE,
+                                null=True, blank=True)
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.TextField(max_length=500)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True, blank=True)
     size = models.CharField(max_length=20, choices=SIZES, default=MEDIUM_SIZE)
@@ -64,22 +79,25 @@ class Job(models.Model):
     pickup_lat = models.FloatField(default=0)
     pickup_lng = models.FloatField(default=0)
     pickup_name = models.CharField(max_length=255, blank=True)
-    pickup_phone = models.CharField(max_length=20, blank=True)
+    pickup_phone = PhoneNumberField(blank=True)
 
     delivery_address = models.CharField(max_length=255, blank=True)
     delivery_lat = models.FloatField(default=0)
     delivery_lng = models.FloatField(default=0)
     delivery_name = models.CharField(max_length=255, blank=True)
-    delivery_phone = models.CharField(max_length=20, blank=True)
+    delivery_phone = PhoneNumberField(blank=True)
 
     duration = models.IntegerField(default=0)
     distance = models.FloatField(default=0)
     price = models.FloatField(default=0)
 
-    pickup_photo = models.ImageField(upload_to='job/pickup_photos/', null=True, blank=True)
+    pickup_photo = models.ImageField(upload_to='job/pickup_photos/',
+                                     null=True,
+                                     blank=True)
     picked_up_at = models.DateTimeField(null=True, blank=True)
 
-    delivery_photo = models.ImageField(upload_to='job/delivery_photos/', null=True, blank=True)
+    delivery_photo = models.ImageField(upload_to='job/delivery_photos/',
+                                       null=True, blank=True)
     delivered_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

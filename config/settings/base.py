@@ -40,16 +40,17 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'bootstrap5',
     'channels',
+    'phonenumber_field',
 
     'apps.users.apps.UsersConfig',
     'apps.ratings.apps.RatingsConfig',
     'apps.customer.apps.CustomerConfig',
-    'apps.courier.apps.CourierConfig',
     'apps.delivery.apps.DeliveryConfig',
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = 'users.User'
 ROOT_URLCONF = "config.urls"
 
 
@@ -225,4 +226,5 @@ BOOTSTRAP5 = {
 GOOGLE_MAP_API_KEY = os.environ.get('GOOGLE_MAP_API_KEY')
 
 
+PHONENUMBER_DEFAULT_REGION = 'RU'
 INTERNAL_IPS = ["127.0.0.1"]

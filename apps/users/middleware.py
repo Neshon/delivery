@@ -1,4 +1,4 @@
-from apps.courier.models import Courier
+from apps.delivery.models import Courier
 from apps.customer.models import Customer
 
 

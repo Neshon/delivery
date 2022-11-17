@@ -1,20 +1,24 @@
 from django import forms
-from django.contrib.auth.models import User
+from phonenumber_field.formfields import PhoneNumberField
 
-from .models import Customer
+from apps.users.models import User
+
+# from .models import Customer
 from apps.delivery.models import Job
 
 
 class BasicUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name')
+        fields = ('first_name', 'last_name', 'avatar')
 
 
-class BasicCustomerForm(forms.ModelForm):
-    class Meta:
-        model = Customer
-        fields = ('avatar',)
+# class BasicCustomerForm(forms.ModelForm):
+#     avatar = forms.ImageField()
+#
+#     class Meta:
+#         model = Customer
+#         fields = ('avatar',)
 
 
 class JobCreateStep1Form(forms.ModelForm):
@@ -27,7 +31,7 @@ class JobCreateStep1Form(forms.ModelForm):
 class JobCreateStep2Form(forms.ModelForm):
     pickup_address = forms.CharField(required=True)
     pickup_name = forms.CharField(required=True)
-    pickup_phone = forms.CharField(required=True)
+    pickup_phone = PhoneNumberField(required=True)
 
     class Meta:
         model = Job
@@ -38,7 +42,7 @@ class JobCreateStep2Form(forms.ModelForm):
 class JobCreateStep3Form(forms.ModelForm):
     delivery_address = forms.CharField(required=True)
     delivery_name = forms.CharField(required=True)
-    delivery_phone = forms.CharField(required=True)
+    delivery_phone = PhoneNumberField(required=True)
 
     class Meta:
         model = Job
