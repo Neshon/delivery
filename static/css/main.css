@@ -1,0 +1,121 @@
+#myTab a {
+  color: black;
+  text-decoration-line: none;
+}
+
+#myTab a:hover {
+  color: orange;
+}
+
+#myTab a.active {
+  color: orange;
+}
+
+#pickup-Map, #delivery-Map {
+  height: 100%;
+}
+
+.photo {
+  object-fit: cover;
+}
+
+.photo-blank {
+  border: 2px dashed #DFDFDF;
+  height: 130px;
+  width: 130px;
+  border-radius: 5px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.gm-ui-hover-effect {
+    display: none !important;
+}
+
+#map {
+    flex: 1;
+}
+
+.card {
+    border: none;
+}
+
+#job-details {
+    display: none;
+}
+
+.bottom-tabs {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.bottom-tabs>a {
+    flex: 1;
+    padding: 5px;
+    color: #BFBFBF;
+    text-decoration: none;
+}
+
+.bottom-tabs>a>span {
+    font-size: 13px;
+    font-weight: bold;
+    display: block;
+}
+
+.bottom-tabs>a>i {
+    font-size: 20px;
+}
+
+.bottom-tabs>a.active {
+    color: #1c2540;
+}
+
+small {
+    font-size: 12px;
+    line-height: 1.2rem;
+}
+
+body {
+    background-color: black;
+}
+
+.btn-back {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+}
+
+.buttons {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#take-photo-step {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+#upload-step {
+    height: 100%;
+    display: none;
+    align-items: center;
+}

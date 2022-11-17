@@ -2,24 +2,6 @@
 {% load rating %}
 {% block head %}
 
-  <style>
-      .photo {
-          object-fit: cover;
-      }
-
-      .photo-blank {
-          border: 2px dashed #DFDFDF;
-          height: 130px;
-          width: 130px;
-          border-radius: 5px;
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          text-align: center;
-          padding: 10px;
-      }
-
-  </style>
 
   <script
       src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api_key }}&callback=initMap&libraries=places&v=weekly"

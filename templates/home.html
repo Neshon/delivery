@@ -4,26 +4,18 @@
 {% block content %}
 
   <div class="container">
-    <div class="row">
-      <div class="col-md">
-        <h1 class="text-center mt-4 mb-4">customer</h1>
+    <div class="nav nav-pills nav-fill mt-5">
+      <div class="nav-item">
+
         <a href="{% if user.is_authenticated %}/customer/{% else %}/users/signin/?next=/customer/{% endif %}"
-           class="page-preview scale-up-hover-2">
-          <img class="shadow-lg rounded scale" src="{% static 'img/customer_img.jpg' %}">
-          <div class="text-center show-on-hover">
-            <h3 class="h6 m-0 text-center text-white">customer</h3>
-          </div>
+           class="btn btn-outline-primary" style="font-size: 4rem; padding-inline: 3rem">
+          customer
         </a>
       </div>
-
-      <div class="col-md">
-        <h1 class="text-center mt-4 mb-4">courier</h1>
+      <div class="nav-item">
         <a href="{% if user.is_authenticated %}/courier/jobs/available/{% else %}/users/signin/?next=/courier/jobs/available/{% endif %}"
-           class="page-preview scale-up-hover-2">
-          <img class="shadow-lg rounded scale" src="{% static 'img/courier_img.jpg' %}">
-          <div class="text-center show-on-hover">
-            <h3 class="h6 m-0 text-center text-white">courier</h3>
-          </div>
+           class="btn btn-outline-primary" style="font-size: 4rem; padding-inline: 3rem">
+          courier
         </a>
       </div>
     </div>

@@ -1,38 +1,3 @@
-<style>
-  .bottom-tabs {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      display: flex;
-      background-color: white;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-      text-align: center;
-  }
-
-  .bottom-tabs>a {
-      flex: 1;
-      padding: 5px;
-      color: #BFBFBF;
-      text-decoration: none;
-  }
-
-  .bottom-tabs>a>span {
-      font-size: 13px;
-      font-weight: bold;
-      display: block;
-  }
-
-  .bottom-tabs>a>i {
-      font-size: 20px;
-  }
-
-  .bottom-tabs>a.active {
-      color: #1c2540;
-  }
-</style>
-
 <div class="bottom-tabs d-flex">
   <a href="{% url 'courier:available_jobs' %}" class="{% if request.path == '/courier/jobs/available/' %} active {% endif %}">
     <i class="fas fa-solid fa-map"></i>
