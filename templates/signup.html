@@ -37,6 +37,11 @@
                  aria-label="google button" title="google button">
                 <span aria-hidden="true" class="fas fa-brands fa-google me-2"></span>
               </a>
+              <a href="{% provider_login_url 'yandex' %}?next={{ request.GET.next }}"
+                 class="btn btn-icon-only btn-pill btn-outline-gray-300 text-google me-2"
+                 aria-label="yandex button" title="google button">
+                <span aria-hidden="true" class="fa-brands fa-yandex me-2"></span>
+              </a>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-4">
               <span class="fw-normal">
